@@ -1,5 +1,4 @@
-Harsh Patel
-ECE 4930 EDA Project 2
+# Simulated Annealing based entlist partitioner in C++
 
 Contents of this archive:
 	- report2.pdf: the report outlining the project implementation which includes
@@ -12,3 +11,6 @@ Contents of this archive:
   	    
 	** This is a Visual Studio Project, make sure to select x86/x64 based on your
 	    computer before you build. Option is at the top under "Architecture" tab **
+		
+
+# Harsh Patel Spring 2018
