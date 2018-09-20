@@ -1,3 +1,9 @@
+/*
+* Harsh Patel
+* Spring 2018
+* Implementation of Circuit class
+*/
+
 #include <string>
 #include "circuit.h"
 
@@ -43,9 +49,9 @@ void Circuit::parseFile(std::ifstream & in){
 		std::string str = s;
 		// Traverse the given string. If current character
 		// is not space, then place it at index 'count++'
-		for (int i = 0; str[i]; i++) 
+		for (int i = 0; str[i]; i++)
 			if (str[i] != ' ' && str[i] != '=')
-				str[count++] = str[i]; // here count is incremented		
+				str[count++] = str[i]; // here count is incremented
 		str[count] = '\0';
 
 		s = str.data();
@@ -93,7 +99,7 @@ void Circuit::parseFile(std::ifstream & in){
 				found2 = line.find('(', found1 + 1);
 				type = line.substr(found1 + 1, found2 - found1 - 1);
 				removeSpace(type);
-			
+
 				std::string gateStr = "G_" + str1;
 				// check to see if gate already made previously
 				it = gates.find(gateStr);
@@ -195,4 +201,3 @@ Gate * Circuit::getInputGate(const std::string & s){
 
 	return g;
 }
-

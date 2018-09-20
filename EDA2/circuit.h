@@ -1,3 +1,9 @@
+/*
+* Harsh Patel
+* Spring 2018
+* Definition of Circuit class
+*/
+
 #ifndef CIRCUIT_H
 #define CIRCUIT_H
 

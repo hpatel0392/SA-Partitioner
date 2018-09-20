@@ -1,3 +1,9 @@
+/*
+* Harsh Patel
+* Spring 2018]
+* Definition of Gate Class
+*/
+
 #ifndef GATE_H
 #define GATE_H
 
@@ -32,4 +38,3 @@ private:
 };
 
 #endif
-

@@ -1,3 +1,9 @@
+/*
+* Harsh Patel
+* Spring 2018
+* Driver file
+*/
+
 #include <iostream>
 #include <fstream>
 #include <unordered_map>
@@ -27,8 +33,8 @@ int main(int argc, char * argv[]) {
 
 	// parse the input file and create the circuit
 	Circuit circuit(in);
-	
-	
+
+
 	// Partition
 	Partitioner P(circuit);
 	P.PartitionSA(out);

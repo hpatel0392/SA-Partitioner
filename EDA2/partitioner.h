@@ -1,3 +1,9 @@
+/*
+* Harsh Patel
+* Spring 2018
+* Definition of Partitioner class
+*/
+
 #ifndef PARTITIONER_H
 #define PARTITIONER_H
 
@@ -45,7 +51,7 @@ private:
 	int sizeA;
 	int sizeB;
 	int cutSize;
-	
+
 	int calculateCutSize() const;
 	int costInA(Gate*) const ;
 	int costInB(Gate*) const ;
@@ -55,7 +61,7 @@ private:
 	std::pair<std::string, Gate*> removeFromB(int);
 
 	Partitioner() = delete;
-	Partitioner(std::vector<std::string>, std::unordered_map<std::string, Gate*>, 
+	Partitioner(std::vector<std::string>, std::unordered_map<std::string, Gate*>,
 				std::vector<std::string>, std::unordered_map<std::string, Gate*>,
 				int, int, int) = delete;
 };

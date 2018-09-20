@@ -1,3 +1,9 @@
+/*
+* Harsh Patel
+* Spring 2018
+* Implementation of Partitioner class
+*/
+
 #include <iostream>
 #include <cmath>
 #include <cstdlib>
@@ -17,10 +23,10 @@ Partitioner::Partitioner(const Circuit & c) :
 	cutSize( 0 )
 {
 	// reserve size for each partition (60% of total gates MAX)
-	int MAX_CAP = (int)ceil(0.6 * (c.getInputs().size() + c.getGates().size() + c.getOutputs().size()) ); 
+	int MAX_CAP = (int)ceil(0.6 * (c.getInputs().size() + c.getGates().size() + c.getOutputs().size()) );
 	keysA.reserve(MAX_CAP);
 	keysB.reserve(MAX_CAP);
-	
+
 	// move inputs to A
 	for (auto & in : c.getInputs()) {
 		this->addToA(in);
@@ -39,11 +45,11 @@ Partitioner::Partitioner(const Circuit & c) :
 	for (auto & g : c.getGates()) {
 		thresh = ((double)sizeA / (sizeA + sizeB)) * 100.0;
 		r = rand() % 100 + 1;
-		if ( (r > thresh ) ) { 
+		if ( (r > thresh ) ) {
 			this->addToA(g);
 		} else {
 			this->addToB(g);
-		}		
+		}
 	}
 	cutSize = calculateCutSize();
 }
@@ -110,7 +116,7 @@ void Partitioner::PartitionSA(std::ofstream & out) {
 		}
 		return false;
 	};
-		
+
 	// lambda function to determine cost of a particular move
 	auto & getCost = [this](int move, int a, int b) {
 		switch (move) {
@@ -167,7 +173,7 @@ void Partitioner::PartitionSA(std::ofstream & out) {
 		for (int i = 0; i < moves_per_temp; i++) {
 			a = (int)floor(uniform(mt) * this->getNodesA() );	// pick a node is A
 			b = (int)floor(uniform(mt) * this->getNodesB() );	// pick a node in B
-			move = (int)floor(uniform(mt) * 3);		// select a move 
+			move = (int)floor(uniform(mt) * 3);		// select a move
 			cost = getCost(move, a, b);				// determine cost of that move
 			if (acceptMove(k, Ti, cost, uniform(mt), move)) {  // if accepted
 				makeMove(move, a, b);   //make that move
@@ -175,10 +181,10 @@ void Partitioner::PartitionSA(std::ofstream & out) {
 				cutSize += cost;  // update cutsize
 			}
 		}
-	
+
 		Ti *= coolFactor;  // cool down
 		moves_per_temp = (int)((double)moves_per_temp / (alpha));
-		
+
 		/* IGNORE
 		costF << this->cutSize << std::endl;
 		tempF << Ti << std::endl;
@@ -187,7 +193,7 @@ void Partitioner::PartitionSA(std::ofstream & out) {
 	}
 
 	this->cutSize = calculateCutSize(); // this is used to verify cutSize (there was a bug somewhere this is the fix)
-	
+
 	/*costF.close(); IGNORE
 	tempF.close();
 	acceptF.close();*/
@@ -311,7 +317,7 @@ int Partitioner::costInA(Gate* g) const {
 			inc = true;
 			for (Gate * out : in->getFanOut()) {	// check its fanouts
 				if (A.find(out->getId()) != A.end()) {	// if in A
-					if (out->getId() != g->getId()) { // check if not original 
+					if (out->getId() != g->getId()) { // check if not original
 						inc = false;
 						break;
 					}
@@ -338,7 +344,7 @@ int Partitioner::costInB(Gate* g) const {
 			inc = true;
 			for (Gate * out : in->getFanOut()) {	// check its fanouts
 				if (B.find(out->getId()) != B.end()) {	// if in B
-					if (out->getId() != g->getId()) { // check if not original 
+					if (out->getId() != g->getId()) { // check if not original
 						inc = false;
 						break;
 					}
@@ -387,7 +393,7 @@ std::pair<std::string, Gate*> Partitioner::removeFromA(int i) {
 	keysA.pop_back();
 	std::unordered_map<std::string, Gate*>::iterator it = A.find(toRemove);
 	std::pair<std::string, Gate*> p(it->first, it->second);
-	
+
 	if (p.second->getType() == Gate::IN || p.second->getType() == Gate::OUT) {
 		sizeA--;
 	}

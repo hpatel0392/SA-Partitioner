@@ -1,3 +1,9 @@
+/*
+* Harsh Patel
+* Spring 2018
+* Implementation of Gate class
+*/
+
 #include "gate.h"
 #include <ostream>
 
